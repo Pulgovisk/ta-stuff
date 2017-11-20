@@ -1,5 +1,9 @@
-local multiedit = require'multiedit'
+-- Load the diff plugin
+_M.file_diff = require('file_diff')
+-- Load multiedit
+local multiedit = require('multiedit')
 
+-- Set Text Adept Theme
 if not CURSES then
 	ui.set_theme('base16-solarized-dark', {
 		font = "Hack",
@@ -7,8 +11,6 @@ if not CURSES then
 	})
 end
 
--- Load the diff plugin
-_M.file_diff = require('file_diff')
 
 -- mimics sublimes ctrl-d
 keys.cd = multiedit.select_word
