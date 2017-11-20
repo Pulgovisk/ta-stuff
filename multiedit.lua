@@ -43,20 +43,20 @@ local M = {}
 M.STAY_IN_LINE = true
 
 local function get_new_position(olpos, inc)
-  
+
   local nupos = buffer:position_relative(olpos, inc)
-  
+
   if M.STAY_IN_LINE then
     local start = buffer:position_from_line(buffer:line_from_position(olpos))
     local stop = buffer.line_end_position[buffer:line_from_position(olpos)]
-    
-    if nupos < start or nupos > stop then 
+
+    if nupos < start or nupos > stop then
       return olpos
     else
-      return nupos 
+      return nupos
     end
   else
-    return nupos 
+    return nupos
   end
 end
 
@@ -89,37 +89,37 @@ M.select_word = function(prevent_scrolling)
   else
     buffer:set_target_range(buffer.selection_n_end[buffer.selections - 1], buffer.selection_n_start[buffer.main_selection])
   end
-  
+
   if buffer:search_in_target(word) ~= -1 then
     buffer:add_selection(buffer.target_start, buffer.target_end)
     buffer.main_selection = 0
-    
+
     if buffer.selection_n_caret[buffer.main_selection] == buffer.selection_n_end[buffer.main_selection] then
       buffer.selection_n_caret[buffer.selections - 1] = buffer.target_end
       buffer.selection_n_anchor[buffer.selections - 1] =  buffer.target_start
     end
-    
+
     if not prevent_scrolling then
       buffer:scroll_range(buffer.target_end, buffer.target_start)
     end
-    
+
     ui.statusbar_text = buffer.selections .. " occurences"
-    
+
     return true
   end
-  
+
   return false
 end
 
 M.select_all_words = function()
   while M.select_word(true) == true do end
-  
+
 end
 
 M.enclose = function(left, right)
   for i = 0, buffer.selections - 1, 1 do
     local s, e = buffer.selection_n_start[i], buffer.selection_n_end[i]
-    
+
     buffer:set_target_range(s,e)
 
     local txt = left..buffer.target_text..right
@@ -142,7 +142,7 @@ M.char_right = function()
   if buffer.selections < 2 then return false end
   for i = 0, buffer.selections - 1, 1 do
     buffer.selection_n_start[i] = get_next_pos(buffer.selection_n_end[i])
-    buffer.selection_n_end[i] = buffer.selection_n_end[i] 
+    buffer.selection_n_end[i] = buffer.selection_n_end[i]
   end
   return true
 end
@@ -155,7 +155,7 @@ M.char_right_extend = function()
 end
 M.word_right = function()
   if buffer.selections < 2 then return false end
-  
+
   for i = 0, buffer.selections - 1, 1 do
     local nupos = buffer:word_end_position(buffer.selection_n_start[i], true)
     if nupos == buffer.selection_n_start[i] then
@@ -177,11 +177,11 @@ M.word_right_extend = function()
   end
   return true
 end
-M.char_left = function() 
+M.char_left = function()
   if buffer.selections < 2 then return false end
   for i = 0, buffer.selections - 1, 1 do
-    buffer.selection_n_start[i] = get_prev_pos(buffer.selection_n_start[i]) 
-    buffer.selection_n_end[i] = buffer.selection_n_start[i] 
+    buffer.selection_n_start[i] = get_prev_pos(buffer.selection_n_start[i])
+    buffer.selection_n_end[i] = buffer.selection_n_start[i]
   end
   return true
 end
@@ -192,9 +192,9 @@ M.char_left_extend = function()
   end
   return true
 end
-M.word_left = function() 
+M.word_left = function()
   if buffer.selections < 2 then return false end
-  
+
   for i = 0, buffer.selections - 1, 1 do
     local nupos = buffer:word_start_position(buffer.selection_n_start[i], true)
     if nupos == buffer.selection_n_start[i] then
@@ -216,19 +216,19 @@ M.word_left_extend = function()
   end
   return true
 end
-M.line_down = function() 
+M.line_down = function()
   if buffer.selections < 2 then return false end
 end
 M.line_down_extend = function()
   if buffer.selections < 2 then return false end
 end
-M.line_up = function() 
+M.line_up = function()
   if buffer.selections < 2 then return false end
 end
 M.line_up_extend = function()
   if buffer.selections < 2 then return false end
 end
-M.line_start = function() 
+M.line_start = function()
   if buffer.selections < 2 then return false end
   for i = 0, buffer.selections - 1, 1 do
     local nupos = buffer:position_from_line(buffer:line_from_position(buffer.selection_n_caret[i]))
@@ -245,7 +245,7 @@ M.line_start_extend = function()
   end
   return true
 end
-M.line_end = function() 
+M.line_end = function()
   if buffer.selections < 2 then return false end
   for i = 0, buffer.selections - 1, 1 do
     local nupos = buffer.line_end_position[buffer:line_from_position(buffer.selection_n_caret[i])]
@@ -276,13 +276,13 @@ M.newline = function()
     buffer:set_target_range(buffer.selection_n_start[i], buffer.selection_n_end[i])
     buffer:replace_target("\n")
     buffer.selection_n_start[i] = buffer:position_relative(buffer.selection_n_end[i], 1)
-    buffer.selection_n_end[i] = buffer.selection_n_end[i] 
+    buffer.selection_n_end[i] = buffer.selection_n_end[i]
   end
   return true
 end
 
 
-M.prevent_crap = function() 
+M.prevent_crap = function()
   if buffer.selections > 2 then return true end
 end
 
