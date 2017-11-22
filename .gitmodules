@@ -1,3 +1,6 @@
 [submodule "themes"]
 	path = themes
 	url = https://github.com/rgieseke/textadept-themes
+[submodule "modules/dmd"]
+	path = modules/dmd
+	url = https://github.com/Pulgovisk/textadept-d
