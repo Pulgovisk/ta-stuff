@@ -7,3 +7,9 @@
 [submodule "modules/cpp"]
 	path = modules/cpp
 	url = https://github.com/Pulgovisk/textadept-cpp
+[submodule "modules/Multiedit"]
+	path = modules/Multiedit
+	url = https://github.com/Pulgovisk/Multiedit
+[submodule "modules/file_diff"]
+	path = modules/file_diff
+	url = https://github.com/Pulgovisk/file_diff
