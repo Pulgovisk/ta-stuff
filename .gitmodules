@@ -4,3 +4,6 @@
 [submodule "modules/dmd"]
 	path = modules/dmd
 	url = https://github.com/Pulgovisk/textadept-d
+[submodule "modules/cpp"]
+	path = modules/cpp
+	url = https://github.com/Pulgovisk/textadept-cpp
