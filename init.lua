@@ -1,7 +1,7 @@
 -- Load the diff plugin
 _M.file_diff = require('file_diff')
 -- Load multiedit
-local multiedit = require('multiedit')
+local multiedit = require('Multiedit')
 
 -- Set Text Adept Theme
 if not CURSES then
