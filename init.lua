@@ -6,7 +6,7 @@ require('Multiedit')
 -- Set Text Adept Theme
 if not CURSES then
 	ui.set_theme('base16-solarized-dark', {
-		font = "Hack",
+		font = "DejaVu Sans Mono",
 		fontsize = 14
 	})
 end
